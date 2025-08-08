@@ -13,7 +13,7 @@ interface ProductItemProps {
 const ProductItem = ({ product }: ProductItemProps) => {
   const firstVariant = product.variants[0];
   return (
-    <Link href="/" className="flex flex-col gap-4">
+    <Link href={`/product-variant/${firstVariant.slug}`} className="flex flex-col gap-4"> {/* O HREF USADO DESSA MANEIRA SERVE PARA AO CLICAR NO PRODUTO IR ATÉ A TELA DA VARIANTE DELE */}
       <Image
         src={firstVariant.imageUrl}
         alt={firstVariant.name}
