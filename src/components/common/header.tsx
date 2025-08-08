@@ -1,38 +1,41 @@
 "use client";
 
+import { LogInIcon, LogOutIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
-import { MenuIcon, LogInIcon, LogOutIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../ui/sheet";
-import { authClient } from "@/lib/auth-client";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 
-export const Header = () => {
-    const { data: session } = authClient.useSession();
+import { authClient } from "@/lib/auth-client";
 
-    return (
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
+
+export const Header = () => {
+  const { data: session } = authClient.useSession();
+  return (
     <header className="flex items-center justify-between p-5">
-        <Image 
-            src="/logo.svg"
-            alt="BEWEAR"
-            width={100}
-            height={26.14}
-        />
-        <div className="flex items-center">
-            <Sheet>
-                <SheetTrigger asChild>
-                    <Button variant="outline" size="icon">
-                        <MenuIcon />
-                    </Button>
-                </SheetTrigger>
-                <SheetContent>
-                    <SheetHeader>
-                        <SheetTitle>
-                            Menu
-                        </SheetTitle>
-                    </SheetHeader>
-                    <div className="px-5">
+      <Link href="/">
+        <Image src="/logo.svg" alt="BEWEAR" width={100} height={26.14} />
+      </Link>
+
+      <div className="flex items-center gap-3">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+            </SheetHeader>
+            <div className="px-5">
               {session?.user ? (
                 <>
                   <div className="flex justify-between space-y-6">
@@ -74,9 +77,9 @@ export const Header = () => {
                 </div>
               )}
             </div>
-                </SheetContent>
-            </Sheet>
-        </div>
+          </SheetContent>
+        </Sheet>
+      </div>
     </header>
-    );
+  );
 };
