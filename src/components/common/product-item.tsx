@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { productTable, productVariantTable } from "@/db/schema";
+import { formatCentsToBRL } from "@/helpers/money";
 
 interface ProductItemProps {
   product: typeof productTable.$inferSelect & {
@@ -26,6 +27,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           {product.description}
         </p>
         <p className="truncate text-sm font-semibold">
+          {formatCentsToBRL(firstVariant.priceInCents)}
         </p>
       </div>
     </Link>
