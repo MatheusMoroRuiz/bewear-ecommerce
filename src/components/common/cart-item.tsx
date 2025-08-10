@@ -10,7 +10,6 @@ import { useRemoveProductFromCart } from "@/hooks/mutations/use-remove-product-f
 import { useDecreaseCartProduct } from "@/hooks/mutations/use-decrease-cart-product";
 import { useIncreaseCartProduct } from "@/hooks/mutations/use-increase-cart-product";
 
-
 interface CartItemProps {
   id: string;
   productName: string;
@@ -32,59 +31,60 @@ const CartItem = ({
 }: CartItemProps) => {
   const removeProductFromCartMutation = useRemoveProductFromCart(id);
   const decreaseCartProductQuantityMutation = useDecreaseCartProduct(id);
-  const increaseCartProductQuantityMutation = useIncreaseCartProduct(id);
+  const increaseCartProductQuantityMutation =
+    useIncreaseCartProduct(productVariantId);
 
   const handleDeleteClick = () => {
     removeProductFromCartMutation.mutate(undefined, {
       onSuccess: () => {
         toast.custom((t) => (
-        <div
-          className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
-          onClick={() => toast.dismiss(t)}
-        >
-          <span className="text-sm font-medium text-green-800">
-          ✅ Produto removido do carrinho.
-          </span>
-        </div>
-      ));
+          <div
+            className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
+            onClick={() => toast.dismiss(t)}
+          >
+            <span className="text-sm font-medium text-green-800">
+              ✅ Produto removido do carrinho.
+            </span>
+          </div>
+        ));
       },
       onError: () => {
-        toast.error("Erro ao remover produto do carrinho.")
-      }
+        toast.error("Erro ao remover produto do carrinho.");
+      },
     });
-  }
+  };
   const handleDecreaseQuantityClick = () => {
     decreaseCartProductQuantityMutation.mutate(undefined, {
       onSuccess: () => {
         toast.custom((t) => (
-        <div
-          className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
-          onClick={() => toast.dismiss(t)}
-        >
-          <span className="text-sm font-medium text-green-800">
-          ✅ Quantidade do produto diminuida.
-          </span>
-        </div>
-      ));
-      }
+          <div
+            className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
+            onClick={() => toast.dismiss(t)}
+          >
+            <span className="text-sm font-medium text-green-800">
+              ✅ Quantidade do produto diminuida.
+            </span>
+          </div>
+        ));
+      },
     });
-  }
+  };
   const handleIncreaseQuantityClick = () => {
     increaseCartProductQuantityMutation.mutate(undefined, {
       onSuccess: () => {
         toast.custom((t) => (
-        <div
-          className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
-          onClick={() => toast.dismiss(t)}
-        >
-          <span className="text-sm font-medium text-green-800">
-          ✅ Quantidade do produto aumentada.
-          </span>
-        </div>
-      ));
-      }
-    })
-  }
+          <div
+            className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
+            onClick={() => toast.dismiss(t)}
+          >
+            <span className="text-sm font-medium text-green-800">
+              ✅ Quantidade do produto aumentada.
+            </span>
+          </div>
+        ));
+      },
+    });
+  };
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-4">
@@ -101,11 +101,19 @@ const CartItem = ({
             {productVariantName}
           </p>
           <div className="flex w-[100px] items-center justify-between rounded-lg border p-1">
-            <Button className="h-4 w-4" variant="ghost" onClick={handleDecreaseQuantityClick}>
+            <Button
+              className="h-4 w-4"
+              variant="ghost"
+              onClick={handleDecreaseQuantityClick}
+            >
               <MinusIcon />
             </Button>
             <p className="text-xs font-medium">{quantity}</p>
-            <Button className="h-4 w-4" variant="ghost" onClick={handleIncreaseQuantityClick}>
+            <Button
+              className="h-4 w-4"
+              variant="ghost"
+              onClick={handleIncreaseQuantityClick}
+            >
               <PlusIcon />
             </Button>
           </div>
