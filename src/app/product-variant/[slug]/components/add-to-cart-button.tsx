@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 
 import { addProductToCart } from "@/actions/add-cart-product";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   productVariantId: string;
@@ -25,6 +26,16 @@ const AddToCartButton = ({
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cart"] });
+      toast.custom((t) => (
+        <div
+          className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
+          onClick={() => toast.dismiss(t)}
+        >
+          <span className="text-sm font-medium text-green-800">
+          ✅ Produto adicionado ao carrinho!
+          </span>
+        </div>
+      ));
     },
   });
   return (

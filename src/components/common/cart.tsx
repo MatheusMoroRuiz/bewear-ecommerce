@@ -17,7 +17,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import CartItem from "./cart.item";
+import CartItem from "./cart-item";
 
 export const Cart = () => {
   const { data: cart, isPending: cartIsLoading } = useQuery({
