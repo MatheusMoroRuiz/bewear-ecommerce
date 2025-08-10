@@ -143,7 +143,16 @@ const Addresses = ({
                     <RadioGroupItem value={address.id} id={address.id} />
                     <div className="flex-1">
                       <Label htmlFor={address.id} className="cursor-pointer">
-                        <div></div>
+                        <div>
+                          <p className="text-sm">
+                            {address.recipientName} • {address.street}, {""},
+                            {address.number}
+                            {address.complement &&
+                              `, ${address.complement}`}, {address.neighborhood}
+                            ,{address.city} - {address.state} • CEP:{" "}
+                            {address.zipCode}
+                          </p>
+                        </div>
                       </Label>
                     </div>
                   </div>
