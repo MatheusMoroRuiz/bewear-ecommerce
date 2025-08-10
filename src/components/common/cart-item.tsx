@@ -4,12 +4,11 @@ import Image from "next/image";
 import { formatCentsToBRL } from "@/helpers/money";
 
 import { Button } from "../ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { removeProductFromCart } from "@/actions/remove-cart-product";
-import { decreaseCartProductQuantity} from "@/actions/decrease-cart-product-quantity/index";
 import { toast } from "sonner";
-import { addProductToCart } from "@/actions/add-cart-product";
+import { useRemoveProductFromCart } from "@/hooks/mutations/use-remove-product-from-cart";
+import { useDecreaseCartProduct } from "@/hooks/mutations/use-decrease-cart-product";
+import { useIncreaseCartProduct } from "@/hooks/mutations/use-increase-cart-product";
 
 
 interface CartItemProps {
@@ -31,33 +30,23 @@ const CartItem = ({
   productVariantPriceInCents,
   quantity,
 }: CartItemProps) => {
-  const queryClient = useQueryClient();
-  const removeProductFromCartMutation = useMutation({
-    mutationKey: ["remove-cart-product"],
-    mutationFn: () => removeProductFromCart({ cartItemId: id}),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    }
-  });
-  const decreaseCartProductQuantityMutation = useMutation({
-    mutationKey: ["decrease-cart-product-quantity"],
-    mutationFn: () => decreaseCartProductQuantity({ cartItemId: id}),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    }
-  })
-  const increaseCartProductQuantityMutation = useMutation({
-    mutationKey: ["increase-cart-product-quantity"],
-    mutationFn: () => addProductToCart({ productVariantId, quantity: 1}),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-    }
-  })
+  const removeProductFromCartMutation = useRemoveProductFromCart(id);
+  const decreaseCartProductQuantityMutation = useDecreaseCartProduct(id);
+  const increaseCartProductQuantityMutation = useIncreaseCartProduct(id);
 
   const handleDeleteClick = () => {
     removeProductFromCartMutation.mutate(undefined, {
       onSuccess: () => {
-        toast.success("Produto removido do carrinho.")
+        toast.custom((t) => (
+        <div
+          className="flex items-center gap-3 rounded-md border border-green-300 bg-green-100 px-4 py-3 shadow-md"
+          onClick={() => toast.dismiss(t)}
+        >
+          <span className="text-sm font-medium text-green-800">
+          ✅ Produto removido do carrinho.
+          </span>
+        </div>
+      ));
       },
       onError: () => {
         toast.error("Erro ao remover produto do carrinho.")
