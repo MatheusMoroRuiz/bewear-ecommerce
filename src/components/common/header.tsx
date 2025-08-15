@@ -203,19 +203,19 @@ export const Header = () => {
                     href="/novidades"
                     className="hover:bg-accent block rounded-md px-2 py-2"
                   >
-                    Novidades
+                    Início
                   </Link>
                   <Link
                     href="/categorias"
                     className="hover:bg-accent block rounded-md px-2 py-2"
                   >
-                    Categorias
+                    Meus Pedidos
                   </Link>
                   <Link
                     href="/promocoes"
                     className="hover:bg-accent block rounded-md px-2 py-2"
                   >
-                    Promoções
+                    Sacola
                   </Link>
                   <Link
                     href="/suporte"
