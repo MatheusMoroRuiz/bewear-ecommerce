@@ -21,9 +21,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuGroup,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { User, Package, LogOut, ChevronDown } from "lucide-react";
 
 export const Header = () => {
   const { data: session } = authClient.useSession();
@@ -34,7 +36,7 @@ export const Header = () => {
 
   return (
     <header
-      className="bg-background/80 relative sticky top-0 z-50 border-b backdrop-blur"
+      className="bg-background/80 relative sticky top-0 z-50 mb-8 border-b backdrop-blur"
       role="banner"
     >
       {/* container responsivo */}
@@ -46,7 +48,7 @@ export const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="flex items-center gap-2 px-2"
+                  className="hover:bg-muted focus-visible:ring-ring flex h-auto items-center gap-3 rounded-full p-1.5 pr-3 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2"
                   aria-label="Abrir menu do usuário"
                 >
                   <Avatar className="h-8 w-8">
@@ -55,27 +57,51 @@ export const Header = () => {
                     />
                     <AvatarFallback>{initials || "US"}</AvatarFallback>
                   </Avatar>
-                  <span>Olá, </span>
-                  {session?.user?.name}
+
+                  <span className="hidden text-sm font-medium sm:block">
+                    {session?.user?.name}
+                  </span>
+
+                  <ChevronDown className="text-muted-foreground hidden h-4 w-4 sm:block" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel className="line-clamp-1">
-                  {session?.user?.name}
+
+              <DropdownMenuContent
+                align="end"
+                className="border-border w-64 shadow-lg"
+              >
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1 py-1">
+                    <p className="line-clamp-1 text-sm leading-none font-semibold">
+                      {session?.user?.name}
+                    </p>
+                    <p className="text-muted-foreground line-clamp-1 text-xs leading-none">
+                      {session?.user?.email}
+                    </p>
+                  </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/account">Minha conta</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/pedidos">Meus pedidos</Link>
-                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem asChild className="cursor-pointer p-2">
+                    <Link href="/account" className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Minha conta</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="cursor-pointer p-2">
+                    <Link href="/my-orders" className="flex items-center">
+                      <Package className="mr-2 h-4 w-4" />
+                      <span>Meus pedidos</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => authClient.signOut()}
-                  className="text-destructive"
+                  className="group cursor-pointer p-2 text-sm text-red-500 focus:bg-red-50 focus:text-red-600"
                 >
-                  Sair
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Sair</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -29,12 +29,9 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
       <Header />
       <div className="space-y-6 px-5">
         <h2 className="text-xl font-semibold">{category.name}</h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-30">
           {products.map((product) => (
-            <ProductItem
-              key={product.id}
-              product={product}
-            />
+            <ProductItem key={product.id} product={product} />
           ))}
         </div>
       </div>

@@ -25,15 +25,15 @@ const Home = async () => {
       <Header />
 
       {/* Container centralizado com paddings responsivos */}
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-5xl space-y-10 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         {/* NAV DESKTOP (lg+) */}
         <nav
-          className="text-muted-foreground mx-auto flex hidden h-16 max-w-7xl justify-center px-4 sm:px-6 lg:flex lg:items-center lg:gap-28 lg:px-8"
+          className="text-muted-foreground hidden h-16 justify-center lg:flex lg:items-center lg:gap-28"
           aria-label="Navegação principal"
         >
-          {/* exemplo de links; remova/ajuste conforme seu projeto */}
+          {/* Seus links de navegação */}
           <Link
-            href="/category/acessrios"
+            href="/category/acessorios"
             className="text-sm font-medium hover:opacity-80"
           >
             Acessórios
@@ -63,73 +63,63 @@ const Home = async () => {
             Jaquetas & Moletons
           </Link>
           <Link
-            href="/category/tnis"
+            href="/category/tenis"
             className="text-sm font-medium hover:opacity-80"
           >
             Tênis
           </Link>
         </nav>
-        {/* Banner topo */}
-        <section className="py-6">
+
+        {/* Seção Banner Topo */}
+        <section>
           {/* Imagem para desktop */}
-          <div className="mx-auto hidden w-full max-w-[1200px] md:block">
+          <div className="hidden md:block">
             <Image
               src="/banner-01-pc.png"
-              alt="Banner Desktop"
-              width={0}
-              height={0}
+              alt="Banner principal versão desktop"
+              width={1200}
+              height={400} // Ajuste a altura conforme necessário
               priority
-              sizes="(min-width: 1280px) 1200px, (min-width: 1024px) 1000px, 100vw"
               className="h-auto w-full rounded-2xl object-cover"
             />
           </div>
-
           {/* Imagem para celular */}
-          <div className="block w-full md:hidden">
+          <div className="block md:hidden">
             <Image
               src="/banner-01.png"
-              alt="Banner Mobile"
-              width={0}
-              height={0}
+              alt="Banner principal versão mobile"
+              width={700}
+              height={300} // Ajuste a altura conforme necessário
               priority
-              sizes="100vw"
               className="h-auto w-full rounded-2xl object-cover"
             />
           </div>
         </section>
 
-        {/* Grid responsiva: sidebar (categorias) + conteúdo */}
-        <section className="lg:grid lg:grid-cols-12 lg:gap-8">
-          {/* Sidebar fixa (aparece só em lg+) */}
-          <aside className="hidden self-start lg:sticky lg:top-24 lg:col-span-3 lg:block">
-            <CategorySelector categories={categories} />
-          </aside>
+        {/* Seção de Categorias para Mobile */}
+        <section className="lg:hidden">
+          <CategorySelector categories={categories} />
+        </section>
 
-          {/* Conteúdo principal */}
-          <div className="space-y-8 lg:col-span-9">
-            {/* Em mobile, categorias acima da lista */}
-            <div className="lg:hidden">
-              <CategorySelector categories={categories} />
-            </div>
+        {/* Seção "Mais vendidos" */}
+        <section>
+          <ProductList products={products} title="Mais vendidos" />
+        </section>
 
-            <ProductList products={products} title="Mais vendidos" />
+        {/* Seção Banner Meio */}
+        <section>
+          <Image
+            src="/banner-02.png"
+            alt="Banner secundário sobre estilo"
+            width={1200}
+            height={400} // Ajuste a altura conforme necessário
+            className="h-auto w-full rounded-2xl object-cover"
+          />
+        </section>
 
-            <div>
-              <Image
-                src="/banner-02.png"
-                alt="Leve uma vida com estilo"
-                width={1920}
-                height={600}
-                sizes="(min-width: 1280px) 1200px, (min-width: 1024px) 1000px, 100vw"
-                className="h-auto w-full rounded-2xl object-cover"
-              />
-            </div>
-
-            <ProductList
-              products={newlyCreatedProducts}
-              title="Novos produtos"
-            />
-          </div>
+        {/* Seção "Novos produtos" */}
+        <section>
+          <ProductList products={newlyCreatedProducts} title="Novos produtos" />
         </section>
       </main>
 
