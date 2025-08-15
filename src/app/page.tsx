@@ -33,7 +33,7 @@ const Home = async () => {
         >
           {/* Seus links de navegação */}
           <Link
-            href="/category/acessorios"
+            href="/category/acessrios"
             className="text-sm font-medium hover:opacity-80"
           >
             Acessórios
@@ -45,7 +45,7 @@ const Home = async () => {
             Bermuda & Shorts
           </Link>
           <Link
-            href="/promocoes"
+            href="/category/calas"
             className="text-sm font-medium hover:opacity-80"
           >
             Calças
@@ -63,7 +63,7 @@ const Home = async () => {
             Jaquetas & Moletons
           </Link>
           <Link
-            href="/category/tenis"
+            href="/category/tnis"
             className="text-sm font-medium hover:opacity-80"
           >
             Tênis
